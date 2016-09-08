@@ -16,6 +16,7 @@ public class CameraMovement : MonoBehaviour {
 	void Update () {
 
         // Make sure that the Main Camera follows the players x position
-        camera.transform.position = new Vector3(player.transform.position.x, 5, -10);
+        Vector3 p = player.transform.position;
+        camera.transform.position = new Vector3(p.x, System.Math.Max(5, p.y), -10);
 	}
 }
