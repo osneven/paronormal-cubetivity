@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody playerBody;
     private Vector3 jumpVelocity;
     private Vector3 jumpVelocityBoost;
+    public Vector3 scaleVelocity;
+
     private bool isJumpBoosting;
     private Vector3 passiveVelocity;
     private PlayerGame playerGame;
@@ -24,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
         jumpVelocityBoost = jumpVelocity * 3;
         isJumpBoosting = false;
         passiveVelocity = new Vector3(.1f, 0, 0);
+        scaleVelocity = new Vector3(1, 0, 0);
     }
 	
 	// Update is called once per frame
@@ -44,7 +47,7 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         // Controll passive movement
-        player.transform.position += passiveVelocity;
+        player.transform.position += passiveVelocity * scaleVelocity.x;       
 	}
 
     // Checks if the player is able to jump at the current moment
