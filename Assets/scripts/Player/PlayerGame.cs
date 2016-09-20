@@ -7,9 +7,7 @@ public class PlayerGame : MonoBehaviour {
     private int lastX;
     private GameObject player;
     private PlayerMovement playerMovement;
-
-    private ArrayList cubes;
-    private int maxCubes;
+    private WorldGenerator worldGenerator;
 
 	// Use this for initialization
 	void Start () {
@@ -18,9 +16,8 @@ public class PlayerGame : MonoBehaviour {
         player = GameObject.Find("Player");
         playerMovement = player.GetComponent<PlayerMovement>();
 
-        // Initialze cube fields
-        cubes = new ArrayList();
-        maxCubes = 3;
+        // Inititlaize the world generator
+        worldGenerator = new WorldGenerator();
 
         // Start by resetting the game
         Reset();
@@ -36,24 +33,9 @@ public class PlayerGame : MonoBehaviour {
         player.transform.position = new Vector3(-6, 3, 0);
         lastX = (int)player.transform.position.x;
 
-        // Delete all previously made cubes
-        foreach (GameObject cube in cubes) {
-            Destroy(cube);
-        }
-
         // Reset scale velocity
         playerMovement.scaleVelocity = new Vector3(1, 0, 0);
-    }
-
-    // Adds a cube for the player to jump on if some conditions are met
-    void AddCube() {
-        if (score >= 1) {
-            GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            cube.transform.position = new Vector3(player.transform.position.x + 20, Random.Range(0, 50));
-            cube.transform.localScale = new Vector3(Random.Range(5,7), 1, 1);
-            cubes.Add(cube);
-        }
-    }    
+    }   
 
 	// Update is called once per frame
 	void Update () {
@@ -72,8 +54,5 @@ public class PlayerGame : MonoBehaviour {
         if (p.y <= -5) {
             Reset();
         }
-
-        // Randomly add another cube to the scene
-        if (Random.Range(0, 10) == 0) AddCube();
 	}
 }
