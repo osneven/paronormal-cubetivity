@@ -30,7 +30,7 @@ public class PlayerGame : MonoBehaviour {
         score = 0;
 
         // Reset position
-        player.transform.position = new Vector3(-6, 3, 0);
+        player.transform.position = new Vector3(0, 3, 0);
         lastX = (int)player.transform.position.x;
 
         // Reset scale velocity
