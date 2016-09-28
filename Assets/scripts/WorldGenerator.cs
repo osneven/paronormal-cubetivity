@@ -25,10 +25,11 @@ public class WorldGenerator : MonoBehaviour {
     void Start () {
         obstacles = new ArrayList();
         obstacles.Add(new Obstacle(obstacle0));
+        obstacles.Add(new Obstacle(obstacle1));
         physicalObstacles = new ArrayList();
         positionX = defaultPositionX;
-        player = GameObject.Find("Player");
-        camera = GameObject.Find("Main Camera");
+        player = GameObjectLibrary.Player;
+        camera = GameObjectLibrary.Camara;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +39,7 @@ public class WorldGenerator : MonoBehaviour {
         RemoveObsoleteObstacles();
 
         // Check if a new obstacle can be spawned
-        if (physicalObstacles.Count < 3)
+        if (physicalObstacles.Count < 4)
             SpawnNewObstacle();
 	}
 
@@ -46,7 +47,7 @@ public class WorldGenerator : MonoBehaviour {
     private void RemoveObsoleteObstacles() {
         for (int i = 0; i < physicalObstacles.Count; i++) {
             Obstacle obstacle = (Obstacle)physicalObstacles[i];
-            if (obstacle.gameObject.transform.position.x + obstacle.length + ((Obstacle)physicalObstacles[(int)Mathf.Min(i + 1, physicalObstacles.Count - 1)]).length <= player.transform.position.x) {
+            if (obstacle.gameObject.transform.position.x + obstacle.length + ((Obstacle)physicalObstacles[(int)Mathf.Min(i + 1, physicalObstacles.Count - 1)]).length + ((Obstacle)physicalObstacles[(int)Mathf.Min(i + 2, physicalObstacles.Count - 1)]).length <= player.transform.position.x) {
                 Destroy(obstacle.gameObject);
                 physicalObstacles.Remove(obstacle);
             }
@@ -56,7 +57,7 @@ public class WorldGenerator : MonoBehaviour {
     // Spawn a new obstacle
     private void SpawnNewObstacle() {
         // Choose a random obstacle form the list to use
-        Obstacle obstacleToSpawn = (Obstacle)obstacles[Random.Range(0, obstacles.Count - 1)];
+        Obstacle obstacleToSpawn = (Obstacle)obstacles[Random.Range(0, obstacles.Count)];
 
         // Spawn the choosen obstacle and add it to the list
         GameObject physicalObstacle = (GameObject)Instantiate(obstacleToSpawn.gameObject, new Vector3(positionX, 0), new Quaternion());

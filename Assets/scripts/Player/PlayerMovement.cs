@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour {
     void Start() {
 
         // Initialize player fields
-        player = GameObject.Find("Player");
+        player = GameObjectLibrary.Player;
         playerBody = this.GetComponent<Rigidbody>();
         playerGame = this.GetComponent<PlayerGame>();
 

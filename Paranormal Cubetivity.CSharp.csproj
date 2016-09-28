@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\CameraMovement.cs" />
+    <Compile Include="Assets\scripts\GameObjectLibrary.cs" />
     <Compile Include="Assets\scripts\Player\PlayerGame.cs" />
     <Compile Include="Assets\scripts\Player\PlayerMovement.cs" />
     <Compile Include="Assets\scripts\WorldGenerator.cs" />

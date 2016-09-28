@@ -8,8 +8,8 @@ public class CameraMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        camera = GameObject.Find("Main Camera");
-        player = GameObject.Find("Player");
+        player = GameObjectLibrary.Player;
+        camera = GameObjectLibrary.Camara;
 	}
 	
 	// Update is called once per frame

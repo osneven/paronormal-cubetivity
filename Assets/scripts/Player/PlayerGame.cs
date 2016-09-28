@@ -13,7 +13,7 @@ public class PlayerGame : MonoBehaviour {
 	void Start () {
 
         // Initialize player fields
-        player = GameObject.Find("Player");
+        player = GameObjectLibrary.Player;
         playerMovement = player.GetComponent<PlayerMovement>();
 
         // Inititlaize the world generator
