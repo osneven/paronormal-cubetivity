@@ -17,7 +17,7 @@ public class PlayerGame : MonoBehaviour {
         playerMovement = player.GetComponent<PlayerMovement>();
 
         // Inititlaize the world generator
-        worldGenerator = new WorldGenerator();
+        worldGenerator = player.GetComponent<WorldGenerator>();
 
         // Start by resetting the game
         Reset();
@@ -35,6 +35,9 @@ public class PlayerGame : MonoBehaviour {
 
         // Reset scale velocity
         playerMovement.scaleVelocity = new Vector3(1, 0, 0);
+
+        // Reset world generator
+        worldGenerator.Reset();
     }   
 
 	// Update is called once per frame
