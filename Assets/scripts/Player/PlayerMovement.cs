@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour {
         playerGame = this.GetComponent<PlayerGame>();
 
         // Initialize velocity fields
-        jumpVelocity = new Vector3(-1.5f, 7, 0);
+        jumpVelocity = new Vector3(0, 15, 0);
         passiveVelocity = new Vector3(.1f, 0, 0);
         scaleVelocity = new Vector3(1, 0, 0);
     }

@@ -30,7 +30,7 @@ public class PlayerGame : MonoBehaviour {
         score = 0;
 
         // Reset position
-        player.transform.position = new Vector3(0, 3, 0);
+        player.transform.position = new Vector3(0, 1, 0);
         lastX = (int)player.transform.position.x;
 
         // Reset scale velocity
@@ -42,20 +42,37 @@ public class PlayerGame : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        Vector3 p = player.transform.position;
 
         // Increase score
-	    if (p.x >= lastX + 10) {
+        UpdateScore();
+        
+        // Check for death
+        CheckDeath();
+	}
+
+    // Check, and respawn, if death occurs
+    void CheckDeath() {
+        
+        // Check if player fell below camera, and thus need to reset the game
+        if (player.transform.position.y <= -5) {
+            Reset();
+        }
+    }
+    void OnTriggerEnter(Collider other) {
+        
+        // Check for respawn trigger
+        if (other.tag == "Respawn") { Reset(); }
+
+    }
+
+    // Handle score increment
+    void UpdateScore() {
+        if (player.transform.position.x >= lastX + 10) {
             score += 1;
-            lastX = (int)p.x;
+            lastX = (int)player.transform.position.x;
 
             // Increase player velocity
             playerMovement.scaleVelocity *= 1.0005f;
         }
-
-        // Check if player fell below camera, and thus need to reset the game
-        if (p.y <= -5) {
-            Reset();
-        }
-	}
+    }
 }

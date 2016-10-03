@@ -15,6 +15,9 @@ public class WorldGenerator : MonoBehaviour {
 
     private ArrayList obstacles;
     private ArrayList physicalObstacles;
+    public ArrayList PhysicalObstacles {
+        get { return physicalObstacles; }
+    }
     private const float defaultPositionX = 12.5f;
     private float positionX; // What x position the next obstacle needs to spawn at
 
@@ -26,6 +29,7 @@ public class WorldGenerator : MonoBehaviour {
         obstacles = new ArrayList();
         obstacles.Add(new Obstacle(obstacle0));
         obstacles.Add(new Obstacle(obstacle1));
+        obstacles.Add(new Obstacle(obstacle2));
         physicalObstacles = new ArrayList();
         positionX = defaultPositionX;
         player = GameObjectLibrary.Player;
@@ -39,7 +43,7 @@ public class WorldGenerator : MonoBehaviour {
         RemoveObsoleteObstacles();
 
         // Check if a new obstacle can be spawned
-        if (physicalObstacles.Count < 4)
+        if (physicalObstacles.Count < 5)
             SpawnNewObstacle();
 	}
 
@@ -76,7 +80,7 @@ public class WorldGenerator : MonoBehaviour {
     }
 
     // Store information for obstacles
-    private class Obstacle {
+    public class Obstacle {
         public GameObject gameObject;
         public float length;
 
