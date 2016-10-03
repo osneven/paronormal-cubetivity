@@ -28,13 +28,10 @@ public class PlayerGame : MonoBehaviour {
 
         // Reset score
         score = 0;
-
+        
         // Reset position
         player.transform.position = new Vector3(0, 1, 0);
         lastX = (int)player.transform.position.x;
-
-        // Reset scale velocity
-        playerMovement.scaleVelocity = new Vector3(1, 0, 0);
 
         // Reset world generator
         worldGenerator.Reset();
@@ -70,9 +67,6 @@ public class PlayerGame : MonoBehaviour {
         if (player.transform.position.x >= lastX + 10) {
             score += 1;
             lastX = (int)player.transform.position.x;
-
-            // Increase player velocity
-            playerMovement.scaleVelocity *= 1.0005f;
         }
     }
 }
