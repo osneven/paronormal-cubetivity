@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Diagnostics;
 using System.Collections;
 
 public class PlayerGame : MonoBehaviour {
@@ -6,11 +7,34 @@ public class PlayerGame : MonoBehaviour {
     public int score;
     private int lastX;
     private GameObject player;
+    private Camera camera;
     private PlayerMovement playerMovement;
     private WorldGenerator worldGenerator;
 
-	// Use this for initialization
-	void Start () {
+    public float msBetweenColorChange = 100;
+    private float lastColorChangeTime = 0;
+
+    public Material color0;
+    public Material color1;
+    public Material color2;
+    public Material color3;
+    public Material color4;
+    public Material color5;
+    public Material color6;
+    private ArrayList colors;
+
+    // Use this for initialization
+    void Start () {
+
+        // Initialize color array
+        colors = new ArrayList();
+        colors.Add(color0);
+        colors.Add(color1);
+        colors.Add(color2);
+        colors.Add(color3);
+        colors.Add(color4);
+        colors.Add(color5);
+        colors.Add(color6);
 
         // Initialize player fields
         player = GameObjectLibrary.Player;
@@ -18,6 +42,10 @@ public class PlayerGame : MonoBehaviour {
 
         // Inititlaize the world generator
         worldGenerator = player.GetComponent<WorldGenerator>();
+
+        // Initialize camera fields
+        camera = GameObjectLibrary.Camara.GetComponent<Camera>();
+        camera.clearFlags = CameraClearFlags.SolidColor;
 
         // Start by resetting the game
         Reset();
@@ -45,6 +73,9 @@ public class PlayerGame : MonoBehaviour {
         
         // Check for death
         CheckDeath();
+
+        // Change background color
+        CheckChangeBackgroundColor();
 	}
 
     // Check, and respawn, if death occurs
@@ -68,5 +99,27 @@ public class PlayerGame : MonoBehaviour {
             score += 1;
             lastX = (int)player.transform.position.x;
         }
+    }
+
+    // Check for background color change
+    void CheckChangeBackgroundColor() {
+        float now = Time.realtimeSinceStartup * 1000;
+        UnityEngine.Debug.Log(now - lastColorChangeTime);
+        if (lastColorChangeTime == 0 || now - lastColorChangeTime >= msBetweenColorChange) {
+            lastColorChangeTime = now;
+            ChangeBackgroundColor();
+        }
+    }
+
+    // Change the background color
+    void ChangeBackgroundColor() {
+
+        // Pick random material
+        Material m = (Material)colors[UnityEngine.Random.RandomRange(0, 5)];
+        while (m.color == camera.backgroundColor)
+            m = (Material)colors[UnityEngine.Random.RandomRange(0, 5)];
+
+        // Set the background material to the choosen one
+        camera.backgroundColor = m.color;
     }
 }
