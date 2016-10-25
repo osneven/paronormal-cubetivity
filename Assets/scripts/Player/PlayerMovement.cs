@@ -27,8 +27,10 @@ public class PlayerMovement : MonoBehaviour {
 	void Update() {
 
         // Controll jump and jump boost
-        if (Input.GetKey("space") && CanJump())
+        if (Input.GetKey("space") && CanJump()) {
             playerBody.velocity += jumpVelocity;
+            playerGame.CheckChangeBackgroundColor();
+        }
 
         // Controll passive movement
         player.transform.position += passiveVelocity;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Diagnostics;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerGame : MonoBehaviour {
 
@@ -22,9 +23,11 @@ public class PlayerGame : MonoBehaviour {
     public Material color5;
     public Material color6;
     private ArrayList colors;
+    
+    public Text ScoreField;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
 
         // Initialize color array
         colors = new ArrayList();
@@ -49,7 +52,9 @@ public class PlayerGame : MonoBehaviour {
 
         // Start by resetting the game
         Reset();
-	}
+
+       
+    }
 	
     // Use this when game resets
     void Reset() {
@@ -75,7 +80,10 @@ public class PlayerGame : MonoBehaviour {
         CheckDeath();
 
         // Change background color
-        CheckChangeBackgroundColor();
+        // CheckChangeBackgroundColor();
+
+        // Makes the score appear on screen
+        ScoreField.text = "Score: " + score;
 	}
 
     // Check, and respawn, if death occurs
@@ -102,7 +110,7 @@ public class PlayerGame : MonoBehaviour {
     }
 
     // Check for background color change
-    void CheckChangeBackgroundColor() {
+    public void CheckChangeBackgroundColor() {
         float now = Time.realtimeSinceStartup * 1000;
         UnityEngine.Debug.Log(now - lastColorChangeTime);
         if (lastColorChangeTime == 0 || now - lastColorChangeTime >= msBetweenColorChange) {
