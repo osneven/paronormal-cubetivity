@@ -40,11 +40,11 @@ public class WorldGenerator : MonoBehaviour {
 	void Update () {
 
         // Remove obstacles
-        RemoveObsoleteObstacles();
+       // RemoveObsoleteObstacles();
 
         // Check if a new obstacle can be spawned
-        if (physicalObstacles.Count < 5)
-            SpawnNewObstacle();
+        //if (physicalObstacles.Count < 5)
+        //    SpawnNewObstacle();
 	}
 
     // Remove obsolete obstacles (those that moved passed the screen)

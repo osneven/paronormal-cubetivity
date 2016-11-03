@@ -112,7 +112,6 @@ public class PlayerGame : MonoBehaviour {
     // Check for background color change
     public void CheckChangeBackgroundColor() {
         float now = Time.realtimeSinceStartup * 1000;
-        UnityEngine.Debug.Log(now - lastColorChangeTime);
         if (lastColorChangeTime == 0 || now - lastColorChangeTime >= msBetweenColorChange) {
             lastColorChangeTime = now;
             ChangeBackgroundColor();

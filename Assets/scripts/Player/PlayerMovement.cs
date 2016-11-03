@@ -7,8 +7,10 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody playerBody;
 
     private Vector3 jumpVelocity;
-    private Vector3 passiveVelocity;
+    public Vector3 passiveVelocity;
     private PlayerGame playerGame;
+
+    private bool CanJump;
 
     // Use this for initialization
     void Start() {
@@ -19,15 +21,15 @@ public class PlayerMovement : MonoBehaviour {
         playerGame = this.GetComponent<PlayerGame>();
 
         // Initialize velocity fields
-        jumpVelocity = new Vector3(0, 15, 0);
-        passiveVelocity = new Vector3(.1f, 0, 0);
+        jumpVelocity = new Vector3(0, 6.5f, 0);
+        passiveVelocity = new Vector3(.17f, 0, 0);
     }
 	
 	// Update is called once per frame
-	void Update() {
-
+	void FixedUpdate() {
+        
         // Controll jump and jump boost
-        if (Input.GetKey("space") && CanJump()) {
+        if (Input.GetKey("space") && CanJump) {
             playerBody.velocity += jumpVelocity;
             playerGame.CheckChangeBackgroundColor();
         }
@@ -36,8 +38,15 @@ public class PlayerMovement : MonoBehaviour {
         player.transform.position += passiveVelocity;
 	}
 
-    // Checks if the player is able to jump at the current moment
-    bool CanJump() {
-        return playerBody.velocity.y == 0;
+    // Handle collision enter: jump varialbe
+    void OnCollisionEnter(Collision col) {
+        if (col.collider.gameObject.tag == "ground")
+            CanJump = true;
+    }
+
+    // Handle collision exit: jump variable
+    void OnCollisionExit(Collision col) {
+        if (col.collider.gameObject.tag == "ground")
+            CanJump = false;
     }
 }
