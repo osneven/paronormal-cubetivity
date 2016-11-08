@@ -59,6 +59,9 @@ public class PlayerGame : MonoBehaviour {
     // Use this when game resets
     void Reset() {
 
+        // Change background color
+        ChangeBackgroundColor();
+
         // Reset score
         score = 0;
         
@@ -71,7 +74,7 @@ public class PlayerGame : MonoBehaviour {
     }   
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
         // Increase score
         UpdateScore();
